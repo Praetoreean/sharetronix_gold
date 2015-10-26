@@ -872,3 +872,51 @@ function reshare_post(postid, confirmmsg, msg_after)
 	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	req.send("postid="+encodeURIComponent(postid));
 }
+function load_more_results(div_id, current_results) {
+	current_results	= parseInt(current_results, 10);
+	var url	= w.location.href.toString();
+	if( ! url ) { return; }
+	if( url.substr(0, siteurl.length) == siteurl ) {
+		url	= url.substr(siteurl.length);
+		if( url.indexOf("#") != -1 ) {
+			url	= url.substr(0, url.indexOf("#"));
+		}
+        current_results = Math.floor((current_results/paging_num_posts))+1;
+		url	= siteurl+url+"/from:ajax/action:loadmore"+"/pg:"+(current_results)+"/r:"+Math.round(Math.random()*1000);
+	}
+	else {
+		url	= url.replace(/^http(s)?\:\/\//, "");
+		url	= url.substr(url.indexOf("/"));
+		if( url.indexOf("#") != -1 ) {
+			url	= url.substr(0, url.indexOf("#"));
+		}
+		url	= siteurl+url+"/from:ajax"+"/r:"+Math.round(Math.random()*1000);
+	}
+	$.get(url, function(data) {
+		var txt	= jQuery.trim(data);
+
+		var num_new_posts	= txt.match(/NUM_POSTS\:([0-9]+)\:/g);
+		if( ! num_new_posts ) { return; }
+		num_new_posts	= num_new_posts.toString().match(/([0-9]+)/);
+		num_new_posts	= parseInt(num_new_posts, 10);
+
+		var start_from	= txt.match(/^OK\:([0-9]+)\:/g);
+		if( ! start_from ) { return; }
+		start_from	= start_from.toString().match(/([0-9]+)/);
+		start_from	= parseInt(start_from, 10);
+		if( start_from < 0 ) { return; }
+		txt	= txt.replace(/^OK\:([0-9]+)\:NUM_POSTS\:([0-9]+)\:LAST_POST_ID\:([0-9]+)\:/, "");
+		$('#'+div_id).append(jQuery('<div/>').css('overflow', 'visible').html(jQuery.trim(txt)));
+        //console.log(num_new_posts)
+		if( num_new_posts < paging_num_posts ){
+			$("#loadmore").slideToggle('fast').remove();
+			return;
+		}
+        document.getElementById('loadmorelink').setAttribute('onclick','load_more_results("'+div_id+'", '+start_from+')')
+		//$("#loadmorelink").attr('onclick', 'load_more_results("'+div_id+'", '+start_from+')');
+		$("#loadmore-img").hide();
+	});
+
+	$("#loadmore-img").show();
+	$("#loadmorelink").blur();
+}

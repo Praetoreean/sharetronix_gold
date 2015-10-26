@@ -46,6 +46,7 @@
 	
 	
 	$tabs		= array('all', '@me', 'private', 'commented', 'bookmarks', 'everybody', 'group');
+    $load_more_tabs = array('all', '@me', 'commented', 'bookmarks', 'everybody', 'group');
 	$filters	= array('all', 'videos', 'images', 'links', 'files');
 	$at_tmp	= array('videos'=>'videoembed', 'images'=>'image', 'links'=>'link', 'files'=>'file');
 	
@@ -293,10 +294,23 @@
 		$D->pg	= max($D->pg, 1);
 		$from	= ($D->pg - 1) * $C->PAGING_NUM_POSTS;
 		$res	= $db2->query($q2.'LIMIT '.$from.', '.$C->PAGING_NUM_POSTS);
-		
+
+        $D->_num_results = $db2->num_rows($res);
+
+        $D->start_from = 0;
+        $D->lats_post_id = 0;
+
+
 		$tmpposts	= array();
 		$tmpids	= array();
 		while($obj = $db2->fetch_object($res)) {
+
+
+            if( $D->lats_post_id < $obj->id ){
+                $D->lats_post_id = $obj->id;
+            }
+
+
 			$D->p	= $tmpposts[] = new post($obj->type, FALSE, $obj);
 			if( $D->p->error ) {
 				continue;
@@ -340,9 +354,12 @@
 		else {
 			$D->paging_url	= $C->SITE_URL.'dashboard/tab:'.$tab.'/filter:'.$filter.'/pg:';
 		}
-		if( $D->num_pages>1 && !$this->param('onlypost') ) {
+
+		if( $D->num_pages>1 && !$this->param('onlypost') && !in_array($tab,$load_more_tabs)) {
 			$this->load_template('paging_posts.php');
 		}
+
+
 		$D->posts_html	= ob_get_contents();
 		ob_end_clean();
 	}
@@ -381,7 +398,14 @@
 	if( $tab=='all' || $tab=='@me' || $tab=='private' || $tab=='commented' || $tab=='feeds' || $tab=='tweets' ) {
 		$this->network->reset_dashboard_tabstate($this->user->id, $tab);
 	}
-	
+	if($this->param('from') == 'ajax' && $this->param('action') == 'loadmore'){
+
+        $D->_start_from = $D->pg*$C->PAGING_NUM_POSTS;
+
+        echo 'OK:'.$D->_start_from.':NUM_POSTS:'.$D->_num_results.':LAST_POST_ID:'.$D->lats_post_id.':';
+        echo $D->posts_html;
+        exit;
+    }
 	if( $this->param('from') == 'ajax' )
 	{
 		echo 'OK:';

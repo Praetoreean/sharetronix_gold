@@ -4819,3 +4819,31 @@ background:#FFF; padding:5px; margin:5px; -moz-border-radius: 10px; border:1px s
 }
 
 /****************/
+/*------LoadMore-----------*/
+/****SHOW MORE BUTTON****/
+#loadmore{
+	width: 100%;
+	border: 1px solid #D9D9D9;
+	background-color: #F3F3F3;
+	height: 30px;
+	margin: 10px 0 10px 0;
+	text-align: center;
+}
+#loadmore a{
+	margin-top: 5px;
+	font-size: 14px;
+	font-weight: bold;
+}
+#loadmore #loadmore-img{
+	margin-top: 5px;
+	display: none;
+}
+#loadmore #loadmorelink{
+	float: left;
+	margin-left: 10px;
+}
+#loadmore #loadmoretotop{
+	float: right;
+	margin-right: 10px;
+}
+/*----------LoadMore------------*/

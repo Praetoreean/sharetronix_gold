@@ -21,9 +21,9 @@ function window_onload() {
 	}
 	window_loaded	= true;
 	setInterval(keep_session, 300000);
-	if(posts_synchronize) {
+	/*if(posts_synchronize) {
 		setTimeout(posts_synchronize, 20000);
-	}
+	}*/
 	if(dbrd_check_tabs) {
 		if( w.location.pathname && w.location.pathname.match("/dashboard") ) {
 			setTimeout(dbrd_check_tabs, 13349);
