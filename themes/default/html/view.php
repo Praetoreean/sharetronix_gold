@@ -213,7 +213,7 @@
 	 					<div class="addpc_big" id="postcomments_<?= $D->post->post_tmp_id ?>_bigform">
 							<img src="<?= $C->IMG_URL.'avatars/thumbs3/'.$this->user->info->avatar ?>" class="addpc_avatar" alt="" />
 							<div class="addpc_right">
-								<textarea id="postcomments_<?= $D->post->post_tmp_id ?>_textarea" onkeyup="textarea_autoheight(this);"></textarea>
+								<textarea id="postcomments_<?= $D->post->post_tmp_id ?>_textarea" onkeyup="textarea_autoheight(this);" onkeypress="not_enter_valid($(this));"></textarea>
 								<input id="postcomments_<?= $D->post->post_tmp_id ?>_submitbtn" onclick="postcomments_submit('<?= $D->post->post_tmp_id ?>');" type="submit" value="<?= $this->lang('post_comments_submit') ?>" />
 							</div>
 						</div>
