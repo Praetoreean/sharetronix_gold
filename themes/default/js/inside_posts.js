@@ -211,6 +211,34 @@ function posts_synchronize_step2()
 }
 function posts_synchronize_single(post_id)
 {
+    var comments_open	= 0;
+    if( $("#postcomments_"+post_id).css('display') == 'block' ) {
+        comments_open	= 1;
+    }
+
+    $.post(siteurl+'ajax/single-post-synchronize/r:'+Math.round(Math.random()*1000), "post_id="+encodeURIComponent(post_id)+"&display_comments="+encodeURIComponent(comments_open), function(txt) {
+        if( txt.substr(0,3) != "OK:" ) { return; }
+        txt	= txt.replace(/^OK\:/, "");
+        var ndv = jQuery('<div/>', {
+            css: {
+                display: 'none',
+                overflow: 'visible'
+            }
+        }).html(jQuery.trim(txt)).attr('id', 'temporary_'+post_id).insertAfter($("#post_"+post_id)).addClass('post');
+        $("#post_"+post_id).remove();
+
+        $("#temporary_"+post_id+" input").each(function(){
+            postform_forbid_hotkeys_conflicts(this);
+        });
+        ndv.attr('id', 'post_'+post_id);
+        ndv.css('display', 'block');
+        if( comments_open == 1 ){
+            $("#post_"+post_id).addClass('withcomments');
+        }
+    });
+}
+/*function posts_synchronize_single(post_id)
+{
 	var comments_open	= false;
 	if( postcomments_open_state && postcomments_open_state[post_id]==1 ) {
 		comments_open	= true;
@@ -268,7 +296,7 @@ function posts_synchronize_single(post_id)
 		sync_tmout	= false;
 	}
 	req.send("");
-}
+}*/
 function viewpost_synchronize()
 {
 	var req = ajax_init(false);
