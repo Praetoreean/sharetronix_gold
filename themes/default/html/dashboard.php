@@ -155,7 +155,7 @@
         <div id="posts_html">
             <?= $D->posts_html ?>
         </div>
-        <?php if( $D->num_results >= $C->PAGING_NUM_POSTS ) { ?>
+        <?php if( ($D->num_results >= $C->PAGING_NUM_POSTS) &&  ($D->tab != 'private')) { ?>
             <script type="text/javascript">
                 var paging_num_posts = <?= $C->PAGING_NUM_POSTS ?>;
                 var last_post_id = <?= $D->lats_post_id ?>;
