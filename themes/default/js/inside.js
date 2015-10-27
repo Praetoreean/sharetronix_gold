@@ -584,3 +584,10 @@ function save_search_off(ajax_url, confirm_msg)
 	lnk_off.style.cursor	= "wait";
 }
 
+function not_enter_valid(textarea){
+    msg = textarea.val();
+    while(msg.indexOf("\n") != -1 || msg.indexOf("\r") != -1){
+        msg = msg.replace(/\r\n|\n|\r/," ");
+        textarea.val(msg);
+    }
+}
