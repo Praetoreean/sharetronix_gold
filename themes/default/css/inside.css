@@ -4819,3 +4819,42 @@ background:#FFF; padding:5px; margin:5px; -moz-border-radius: 10px; border:1px s
 }
 
 /****************/
+/*----UserRateCss-----*/
+.rate {
+	width          : 139px;
+	height         : 48px;
+	background     : white url('../imgs/user_rate/rate.png') no-repeat;
+	text-align     : center;
+	color          : white;
+	opacity        : 1.0;
+	font-style     : normal;
+	font-variant   : normal;
+	font-weight    : bold;
+	font-size      : 18px;
+	margin         : 6px 13px -5px 0;
+	padding : 4px 0 0;
+}
+
+.rate:hover {
+	background     : white url('../imgs/user_rate/rating.png') no-repeat top right;
+	padding : 4px 150px 0 0;
+}
+
+.dragme {
+	display               : none;
+	text-align            : justify;
+	padding               : 10px;
+	color                 : #000;
+	font-size             : 12px;
+	background-color      : #e3e3e3;
+	-webkit-border-radius : 10px;
+	-moz-border-radius    : 10px;
+	border-radius         : 10px;
+	border                : 6px solid #8f8f8f;
+	position              : absolute;
+	top                   : 200px;
+	left                  : 150px;
+	z-index               : 9999999;
+	cursor                : move
+}
+/*----UserRateCss-----*/
