@@ -155,6 +155,16 @@
                                     <td style="text-align:left"><?php echo $num_reshh = $D->numresh; ?></td>
                                     <td style="text-align:left"><?php echo $num_reshh = $D->numresh * 0.5; ?></td>
                                 </tr>
+                                <tr>
+                                    <td>امتیاز ارسالی</td>
+                                    <td style="text-align:left">-</td>
+                                    <td style="text-align:left"><?= $this->user->info->rate_send ?></td>
+                                </tr>
+                                <tr>
+                                    <td>امتیاز دریافتی</td>
+                                    <td style="text-align:left">-</td>
+                                    <td style="text-align:left"><?= $this->user->info->rate_get ?></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
