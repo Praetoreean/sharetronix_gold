@@ -92,7 +92,7 @@
 
 
     ///////////////////////////////////مجموع امتيازات///////////////////////////////////////////////////
-    $total_emtyaz = $emtyaz_mg + $numreshtomee + $numcommtomee + $this->user->info->rate_get - $this->user->info->rate_send +
+    $total_emtyaz = $emtyaz_mg + $numreshtomee + $numcommtomee +
         + $emtyaz_joing + $emtyaz_liketo + $emtyaz_postme + $emtyaz_floweer + $emtyaz_flower + $emtyaz_comm + $emtyaz_resh;
     $D->totalemtyazz = @round($total_emtyaz);
 

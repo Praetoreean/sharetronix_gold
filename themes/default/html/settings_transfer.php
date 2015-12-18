@@ -26,10 +26,11 @@
             <div class="greygrad">
                 <div class="greygrad2">
                     <div class="greygrad3">
-                        <p><?= $this->lang('settings_transfer_how_much_now') ?><?= $this->user->info->rate ?></p>
+                        <p><?= $this->lang('settings_transfer_how_much_now') ?><?= $this->user->get_rate() ?></p>
                     </div>
                 </div>
             </div>
+
             <div class="greygrad">
                 <div class="greygrad2">
                     <div class="greygrad3">

@@ -48,7 +48,7 @@
 							<?php } ?>
 
 
-							<div><a href="javascript:NewWindow ('rate','rate','750','350','center','front');"  title="امتياز کاربري" onfocus="this.blur();" ><div class="rate"><?= htmlspecialchars($u->rate) ?></div></a></div>
+							<div><a href="javascript:NewWindow ('rate','rate','750','350','center','front');"  title="امتياز کاربري" onfocus="this.blur();" ><div class="rate"><?= $this->user->get_rate() ?></div></a></div>
 						</div>
 					</div>
 					<div id="home_content">

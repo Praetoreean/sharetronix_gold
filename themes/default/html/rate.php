@@ -51,7 +51,7 @@
                             <img src="<?= $C->SITE_URL . 'themes/' . $C->THEME ?>/imgs/user_rate/amar.png" style="width: 250px; height: 201px;" align="middle"><br><br><br>
 
                             <div id="user_rate_info" align="center">
-                                امتياز کاربري : <b style="color:red"><?php echo $total_emtyaz = $D->totalemtyazz; ?></b><br>
+                                امتياز کاربري : <b style="color:red"><?= $this->user->get_rate() ?></b><br>
 
                                 رتبه کاربري : <font color="green"><b><font color="red">
                                             <? if (0 <

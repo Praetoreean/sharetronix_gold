@@ -7,7 +7,7 @@
 		public $is_logged;
 		public $info;
 		public $sess;
-		
+
 		public function __construct()
 		{
 			$this->id	= FALSE;
@@ -116,7 +116,7 @@
 			$this->sess['cdetails']	= $this->db2->fetch('SELECT * FROM users_details WHERE user_id="'.$this->id.'" LIMIT 1');
 			return TRUE;
 		}
-		
+
 		public function try_autologin()
 		{
 			if( ! $this->network->id ) {
@@ -159,7 +159,16 @@
 			$this->is_logged	= FALSE;
 			$_SESSION['TWITTER_CONNECTED']	= FALSE;
 		}
-		
+		public function get_rate(){
+			if( ! $this->network->id ) {
+				return FALSE;
+			}
+			if( !$this->is_logged ) {
+				return FALSE;
+			}
+			$rate = (int)($this->info->rate) + (int)($this->info->rate_get) - (int)($this->info->rate_send);
+			return $rate;
+		}
 		public function follow($whom_id, $how=TRUE)
 		{
 			if( ! $this->is_logged ) {
