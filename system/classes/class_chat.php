@@ -102,7 +102,9 @@
 
                 $o->message = htmlspecialchars($o->message);
                 if( FALSE!==strpos($o->message,'http://') || FALSE!==strpos($o->message,'http://') || FALSE!==strpos($o->message,'ftp://') ) {
-                    $o->message	= preg_replace_callback('#(^|\s)((http|https|ftp)://\w+[^\s\[\]]+)#ie', 'post::_postparse_build_link("\\2", "\\1")', $o->message);
+                    $o->message	= preg_replace_callback('#(^|\s)((http|https|ftp)://\w+[^\s\[\]]+)#i',
+                        function($m) { return post::_postparse_build_link($m[2], $m[1]); }
+                        , $o->message);
                 }
                 $o->message = functions::process_smile($o->message);
                 $chat[$o->id]['user_id'] = $o->user_id;
@@ -136,7 +138,7 @@
         }
 
 
-        
+
 
 
     }
