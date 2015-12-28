@@ -138,6 +138,21 @@
         }
 
 
+        public function delete_chat($id){
+            if($this->error){
+                return false;
+            }
+            if(!$this->user->info->is_network_admin){
+                return false;
+            }
+            $id = intval($id);
+            if($id == 0){
+                return false;
+            }
+            $this->db2->query('DELETE FROM chat WHERE id="'.$id.'"');
+            return true;
+        }
+
 
 
 
