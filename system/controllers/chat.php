@@ -19,7 +19,7 @@
     $data = $c->get_message($lastdate,50);
 
     $chat = $data[1];
-
+    $D->lastdate = $data[0];
     $D->chats = $chat;
 
     $this->load_template('chat.php');

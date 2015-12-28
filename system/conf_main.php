@@ -95,7 +95,7 @@
 	// 
 		$C->INSTALLED	= TRUE;
 		$C->VERSION		= '1.5.1';
-		$C->DEBUG_USERS		= array();
+		$C->DEBUG_USERS		= array('localhost','127.0.0.1','::1');
 	// 
 	
 ?>

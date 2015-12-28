@@ -28,4 +28,3 @@
         echo 'ERROR';
         return;
     }
-    

@@ -20,7 +20,7 @@
 
     $c = new chat();
 
-    $data = $c->get_message($lastdate);
+    $data = $c->get_message($lastdate,false,true);
 
     $lastdate = $data[0];
     $chat = json_encode($data[1]);

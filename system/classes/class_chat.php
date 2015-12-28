@@ -27,13 +27,12 @@
 
                 if($this->user->is_logged){
                     $this->error = false;
-                    return true;
+                    return;
                 }
                 $this->error = true;
-                return false;
+                return;
             }
             $this->error = true;
-            return false;
         }
 
         public function insert($message,$to_user=false,$to_group=false,$reply_to = false){
@@ -55,12 +54,12 @@
             //Reply To Code
 
 
-            $this->db2->insert('INSERT INTO chat SET user_id="'.$this->user->id.'",message="'.$this->db2->e($message).'",date="'.time().'"');
+            $this->db2->query('INSERT INTO chat SET user_id="'.$this->user->id.'",message="'.$this->db2->e($message).'",date="'.time().'"');
 
 
             return $this->db2->insert_id();
         }
-        public function get_message($lastdate,$limit = false){
+        public function get_message($lastdate,$limit = false,$not_this_user =  false){
             if($this->error){
                 return false;
             }
@@ -69,7 +68,7 @@
             if($lastdate == 0){
                 return false;
             }
-
+            $limit_str = '';
             if($limit){
                 $limit = (int)$limit;
                 if($limit == 0){
@@ -78,8 +77,13 @@
                     $limit_str = ' LIMIT '.$limit;
                 }
             }
+            if($not_this_user){
+                $not_this_user_str = 'user_id != "'.$this->user->id.'" AND';
+            }else{
+                $not_this_user_str = '';
+            }
 
-            $query = $this->db2->query('SELECT id,user_id,message,date FROM chat WHERE user_id != "'.$this->user->id.'" AND date > "'.$this->db2->e($lastdate).'" AND is_deleted = "0" ORDER BY id DESC'.$limit_str);
+            $query = $this->db2->query('SELECT id,user_id,message,date FROM chat WHERE '.$not_this_user_str.' date > "'.$this->db2->e($lastdate).'" AND is_deleted = "0" ORDER BY id DESC'.$limit_str);
 
             $chat = array();
             $i = 0;
@@ -97,8 +101,11 @@
                 $i++;
 
                 $o->message = htmlspecialchars($o->message);
+                if( FALSE!==strpos($o->message,'http://') || FALSE!==strpos($o->message,'http://') || FALSE!==strpos($o->message,'ftp://') ) {
+                    $o->message	= preg_replace_callback('#(^|\s)((http|https|ftp)://\w+[^\s\[\]]+)#ie', 'post::_postparse_build_link("\\2", "\\1")', $o->message);
+                }
                 $o->message = functions::process_smile($o->message);
-
+                $chat[$o->id]['user_id'] = $o->user_id;
                 $chat[$o->id]['avatar'] = $GLOBALS['C']->IMG_URL.'avatars/thumbs3/'.$o->user->avatar;
                 $chat[$o->id]['fullname'] = htmlspecialchars($o->user->fullname);
                 $chat[$o->id]['userlink'] = userlink($o->user->username);
@@ -106,6 +113,10 @@
                 $chat[$o->id]['date'] = pdate('H:i',$o->date);
                 $chat[$o->id]['is_seen'] = 1;
             }
+
+
+            $this->update_seens();
+
 
             $chat = array_reverse($chat);
 
@@ -116,6 +127,16 @@
 
             return $data;
         }
+        public function update_seens(){
+            if($this->error){
+                return false;
+            }
+            $this->db2->query('UPDATE chat SET is_seen = 1');
+            return true;
+        }
+
+
+        
 
 
     }

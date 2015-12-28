@@ -21,6 +21,7 @@ i/swf/
 i/icons/
 i/upload/
 xd_receiver.htm
+system/conf_main.php
 
 # Windows Installer files
 *.cab
