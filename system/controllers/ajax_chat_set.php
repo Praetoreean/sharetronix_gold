@@ -20,9 +20,9 @@
     }
 
     $c = new chat();
-
-    if($c->insert($message)>0) {
-        echo 'OK';
+    $r = $c->insert($message);
+    if($r>0) {
+        echo 'OK:'.$r;
         return;
     }else {
         echo 'ERROR';

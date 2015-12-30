@@ -190,7 +190,17 @@
             </div>
         </div>
     </div>
+    <?php if($this->user->info->is_network_admin == 1){ ?>
+        <script type="text/javascript">
+            var this_user_is_administrator = true;
+        </script>
+    <?php }else{ ?>
+        <script type="text/javascript">
+            var this_user_is_administrator = false;
+        </script>
+    <?php } ?>
     <script type="text/javascript">
+
         $(document).ready(function () {
             $('#chat_message').keypress(function (e) {
                 if (e.which == 13) {
@@ -229,11 +239,13 @@
              * Ritht Template For this User Send Messsages
              * @type {string}
              */
+            html += '<div id="message_box_chat_'+randNumber+'">';
             html += '<div class="message_box right" id="message_box_' + randNumber + '" style="opacity: 0.4;"><div class="avatar"><img src="';
             html += this_user_avatar;
             html += '"></div><div class="message me">';
             html += message;
-            html += '</div></div>حذف<div class="klear"></div>';
+            var _date = new Date();
+            html += '<br/><small>'+_date.getHours() + ':'+_date.getMinutes()+'</small></div></div><div class="klear"></div></div>';
 
 
             $('#content_chat').append(html);
@@ -244,7 +256,12 @@
             $.post(siteurl + 'ajax/chat/set/r:' + Math.round(Math.random() * 1000), {
                 message: message
             }, function (data) {
-                if (data == 'OK') {
+                if (data.substr(0,3) == 'OK:') {
+                    data = parseInt(data.replace(/^OK\:/,""));
+                    if(this_user_is_administrator){
+                        deleteButton = '<a href="javascript:;" onclick="delete_chat_message('+data+')" style="float:right;margin-top:5px;"><img src="'+siteurl+'themes/default/imgs/delete_chat_msg.gif"/></a>';
+                        $('#message_box_chat_'+randNumber).find('.klear').before(deleteButton);
+                    }
                     $('#message_box_' + randNumber).css('opacity', 1);
                     get_chat_message()
                 } else {
@@ -280,11 +297,17 @@
                          * @type {string}
                          */
                         html = '';
+                        html += '<div id="message_box_chat_'+obj[i].chat_id+'">';
                         html += '<div class="message_box left"><div class="avatar"><img src="';
                         html += obj[i].avatar;
                         html += '"></div><div class="message other">';
                         html += obj[i].message;
-                        html += '</div></div><div class="klear"></div>';
+                        html += '<br/><small>'+obj[i].date+'</small></div></div>';
+                        if(this_user_is_administrator){
+                            deleteButton = '<a href="javascript:;" onclick="delete_chat_message('+obj[i].chat_id+')" style="float:left;margin-top:5px;"><img src="'+siteurl+'themes/default/imgs/delete_chat_msg.gif"/></a>';
+                            html += deleteButton;
+                        }
+                        html +='<div class="klear"></div></div>';
 
                         $('#content_chat').append(html);
 

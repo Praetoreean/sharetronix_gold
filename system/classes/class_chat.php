@@ -107,6 +107,7 @@
                         , $o->message);
                 }
                 $o->message = functions::process_smile($o->message);
+                $chat[$o->id]['chat_id'] = $o->id;
                 $chat[$o->id]['user_id'] = $o->user_id;
                 $chat[$o->id]['avatar'] = $GLOBALS['C']->IMG_URL.'avatars/thumbs3/'.$o->user->avatar;
                 $chat[$o->id]['fullname'] = htmlspecialchars($o->user->fullname);
