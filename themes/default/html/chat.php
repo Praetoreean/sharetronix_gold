@@ -37,7 +37,7 @@
         }
 
         .chat .footer_chat input {
-            width            : 330px;
+            width            : 230px;
             float            : right;
             text-align       : right;
             direction        : rtl;
@@ -59,6 +59,7 @@
             font             : 14px Yekan;
             color            : #fff;
             background-color : #059290;
+            float:right;
         }
 
         .chat .footer_chat .send_chat:hover {
@@ -152,8 +153,8 @@
                 <div class="user_box_info" style="width:400px;border-top:solid 3px #752587">
                     <div class="chat">
                         <div class="header_chat">
-                            سیستم چت همکلاسیها(آزمایشی)
-                            <span class="online">افراد حاضر:- نفر</span>
+                            <?= $C->SITE_TITLE ?> همکلاسیها(آزمایشی)
+                            <span class="online"></span>
                         </div>
                         <div class="content_chat" id="content_chat_total">
                             <div id="content_chat">
@@ -180,6 +181,9 @@
 
                         </div>
                         <div class="footer_chat">
+                            <a href="javascript:;" style="width:40px;" onclick="openSmileBox($(this))">
+                                <div class="send_chat" style="background-color: #390000;color:#fff;">:)</div>
+                            </a>
                             <input type="text" id="chat_message" placeholder="پیام خود را بنویسید"/>
                             <a href="javascript:;" onclick="send_chat_message()">
                                 <div class="send_chat">ارسال</div>
@@ -190,6 +194,58 @@
             </div>
         </div>
     </div>
+    <style>
+        .smile_box{
+            width:190px;
+            height:180px;
+            background-color:#fff;
+            border:solod 1px #000;
+            position: absolute;
+            -webkit-box-shadow : 2px 2px 2px #e1e1e1;
+            -moz-box-shadow    : 2px 2px 2px #e1e1e1;
+            box-shadow         : 2px 2px 2px #e1e1e1;
+            top:100px;
+            left:100px;
+            display: none;
+        }
+        .smile_box .content_smile_box{
+            padding:5px;
+            overflow:auto;
+        }
+        .smile_box .content_smile_box a{
+            width:22px;
+            height:20px;
+        }
+        .smile_box .content_smile_box a img{
+            width:18px;
+            height:18px;
+        }
+    </style>
+    <div class="smile_box" id="smile_box">
+        <div class="content_smile_box">
+            <?php $sm = array();foreach($C->POST_ICONS as $k => $v){ if(isset($sm[$v])){continue;}else{$sm[$v] = true;}?>
+                <a href="javascript:;" onclick="addSmileTextToBox('chat_message','<?= htmlentities($k) ?>');return false;"><img src="<?= $C->IMG_URL ?>/icons/<?= $v ?>"/></a>
+            <?php } ?>
+        </div>
+    </div>
+    <script>
+        function addSmileTextToBox(boxid,smiletext){
+            var text = $('#'+boxid).val();
+            text += smiletext;
+            $('#'+boxid).val(text);
+        }
+        function openSmileBox(btn){
+            var top = btn.offset().top - 200;
+            var left = btn.offset().left + 150;
+            $('#smile_box').css({top:top,left:left});
+            $('#smile_box').fadeIn();
+        }
+        $(function(){
+            $('#smile_box').mouseleave(function(){
+                $('#smile_box').hide();
+            })
+        })
+    </script>
     <?php if($this->user->info->is_network_admin == 1){ ?>
         <script type="text/javascript">
             var this_user_is_administrator = true;
@@ -209,9 +265,7 @@
             });
 
         });
-
-
-
+        
         /**
          * Smile Array
          */
@@ -414,7 +468,8 @@
             var orig_message = message;
             for (var i in SmileArrays)
             {
-                message = message.replace(i,'<img src="'+smile_url_base+SmileArrays[i]+'" class="post_smiley" alt="'+i+'" title="'+i+'"/>');
+                var txt = i;
+                message = message.replace(i,'<img src="'+smile_url_base+SmileArrays[i]+'" class="post_smiley" />');
             }
 
             html += '<div id="message_box_chat_'+randNumber+'">';
