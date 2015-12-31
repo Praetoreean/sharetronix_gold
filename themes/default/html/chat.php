@@ -446,7 +446,10 @@
                         html += '<div id="message_box_chat_'+obj[i].chat_id+'">';
                         html += '<div class="message_box left"><div class="avatar"><a href="'+obj[i].userlink+'" title="'+obj[i].fullname+'" target="_blank"><img src="';
                         html += obj[i].avatar;
-                        html += '"></div><div class="message other">';
+                        html += '"></a></div><div class="message other">';
+                        if(parseInt(obj[i].reply_to) > 0){
+                            alert(obj[i].reply_to_data.message);
+                        }
                         html += obj[i].message;
                         html += '<br/><small>'+obj[i].date+'</small></div></div>';
                         if(this_user_is_administrator){

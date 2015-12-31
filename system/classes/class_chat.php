@@ -130,7 +130,7 @@
                 $reply_to_query = $this->db2->query('SELECT id,user_id,message,date FROM chat WHERE id IN ('.implode(",",$reply_to).')');
                 while($x = $this->db2->fetch_object($reply_to_query)){
                     foreach($chat as $k=>$v){
-                        if($v['reply_to'] > 0){
+                        if($v['reply_to'] > 0 && intval($v['reply_to']) == $x->id ){
                             if($tmp = $this->network->get_user_by_id($x->user_id)){
                                 $chat[$k]['reply_to_data'] = array(
                                     'fullname'=>$this->network->get_user_by_id($x->user_id)->fullname,
@@ -141,7 +141,6 @@
                     }
                 }
             }
-
 
 
             $this->update_seens();
