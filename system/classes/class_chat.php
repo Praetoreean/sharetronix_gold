@@ -53,8 +53,12 @@
             //To Group Code
             //Reply To Code
 
-
-            $this->db2->query('INSERT INTO chat SET user_id="'.$this->user->id.'",message="'.$this->db2->e($message).'",date="'.time().'"');
+            if($reply_to != false){
+                $reply_to_str = ',reply_to="'.intval($reply_to).'"';
+            }else{
+                $reply_to_str = '';
+            }
+            $this->db2->query('INSERT INTO chat SET user_id="'.$this->user->id.'",message="'.$this->db2->e($message).'",date="'.time().'"'.$reply_to_str);
 
 
             return $this->db2->insert_id();
@@ -83,12 +87,12 @@
                 $not_this_user_str = '';
             }
 
-            $query = $this->db2->query('SELECT id,user_id,message,date FROM chat WHERE '.$not_this_user_str.' date > "'.$this->db2->e($lastdate).'" AND is_deleted = "0" ORDER BY id DESC'.$limit_str);
+            $query = $this->db2->query('SELECT id,user_id,message,date,reply_to FROM chat WHERE '.$not_this_user_str.' date > "'.$this->db2->e($lastdate).'" AND is_deleted = "0" ORDER BY id DESC'.$limit_str);
 
             $chat = array();
             $i = 0;
             $lastdate = 0;
-
+            $reply_to = array();
             while($o = $this->db2->fetch_object($query)){
                 if($i == 0){
                     $lastdate = $o->date;
@@ -106,6 +110,7 @@
                         function($m) { return post::_postparse_build_link($m[2], $m[1]); }
                         , $o->message);
                 }
+
                 $o->message = functions::process_smile($o->message);
                 $chat[$o->id]['chat_id'] = $o->id;
                 $chat[$o->id]['user_id'] = $o->user_id;
@@ -115,7 +120,28 @@
                 $chat[$o->id]['message'] = $o->message;
                 $chat[$o->id]['date'] = pdate('H:i',$o->date);
                 $chat[$o->id]['is_seen'] = 1;
+                $chat[$o->id]['reply_to'] = $o->reply_to;
+                if($o->reply_to > 0){
+                    $reply_to[] = $o->reply_to;
+                }
+
             }
+            if(count($reply_to) > 0 ){
+                $reply_to_query = $this->db2->query('SELECT id,user_id,message,date FROM chat WHERE id IN ('.implode(",",$reply_to).')');
+                while($x = $this->db2->fetch_object($reply_to_query)){
+                    foreach($chat as $k=>$v){
+                        if($v['reply_to'] > 0){
+                            if($tmp = $this->network->get_user_by_id($x->user_id)){
+                                $chat[$k]['reply_to_data'] = array(
+                                    'fullname'=>$this->network->get_user_by_id($x->user_id)->fullname,
+                                    'message'=> str_cut($x->message,50),
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
 
 
             $this->update_seens();

@@ -119,6 +119,29 @@
             float      : left;
         }
 
+
+
+        .chat .content_chat .message_box .reply {
+            font-size:11px;
+            color:#444;
+            background-color: #f1f1f1;
+            padding-top:2px;
+            padding-bottom:2px;
+            border-left:solid 3px #555;
+            padding-right:2px;
+            padding-left:2px;
+
+        }
+        .chat .content_chat .message_box p {
+            padding:0px;
+            margin:0px;
+        }
+        .chat .content_chat .message_box hr{
+
+        }
+
+
+
         .chat .content_chat .left {
             float : left;
         }
@@ -160,13 +183,16 @@
                             <div id="content_chat">
 
                                 <?php foreach ($D->chats as $key => $k) { ?>
-                                    <div id="message_box_chat_<?= $key ?>">
+                                    <div id="message_box_chat_<?= $key ?>" class="message_box_chat_base" data-chat-id="<?= $k['chat_id']  ?>">
                                         <div class="message_box <?= $k['user_id'] == $this->user->id ? 'right' : 'left' ?>">
                                             <div class="avatar">
                                                 <a href="<?= $k['userlink'] ?>" target="_blank" title="<?= $k['fullname'] ?>"> <img src="<?= $C->IMG_URL ?>avatars/thumbs3/<?= $k['user_id'] == $this->user->id ? $this->user->info->avatar : $this->network->get_user_by_id($k['user_id'])->avatar ?>"></a>
                                             </div>
                                             <div class="message <?= $k['user_id'] == $this->user->id ? 'me' : 'other' ?>">
-                                                <?= ($k['message']) ?><br/>
+                                                <?php if(isset($k['reply_to_data'])){ ?>
+                                                    <div class="reply"><?= $k['reply_to_data']['message'] ?></div>
+                                                <?php } ?>
+                                                <p><?= ($k['message']) ?></p>
                                                 <small><?= $k['date'] ?></small>
                                             </div>
                                         </div>
@@ -180,11 +206,37 @@
                             </div>
 
                         </div>
+                        <style>
+                            .answer_to_chat{
+                                width:100%;
+                                background-color: #eee;
+                                display:none;
+                            }
+                            .answer_to_chat p{
+                                padding:5px;
+                                padding-top:0px;
+                                color:#555;
+                                font-size:11px;
+                                float:right;
+                            }
+                            .answer_to_chat a{
+                                float:left;
+                                margin-left:10px;
+                                font-size:18px;
+                                color:#000;
+                                margin-top:7px;
+                            }
+                        </style>
                         <div class="footer_chat">
+                            <div class="answer_to_chat">
+                                <input type="hidden" name="_answer_to" id="_answer_to_input" value="0"/>
+                                <p></p>
+                                <a href="javascript:;" onclick="delete_reply_message();">×</a>
+                            </div>
                             <a href="javascript:;" style="width:40px;" onclick="openSmileBox($(this))">
                                 <div class="send_chat" style="background-color: #390000;color:#fff;">:)</div>
                             </a>
-                            <input type="text" id="chat_message" placeholder="پیام خود را بنویسید"/>
+                            <input type="text" id="chat_message" style="width:270px;" placeholder="پیام خود را بنویسید"/>
                             <a href="javascript:;" onclick="send_chat_message()">
                                 <div class="send_chat">ارسال</div>
                             </a>
@@ -281,7 +333,22 @@
                 }
             });
 
+            $('.message_box_chat_base').dblclick(function(){
+                if(confirm('آیا میخواهید پیامتان پاسخ این پیام باشد؟')){
+                    var _answer_html = $(this).find('.message').find('p').html();
+                    $('.content_chat').animate({height: "380px"});
+                    $('.answer_to_chat').find('p').html(_answer_html);
+                    $('.answer_to_chat').slideDown();
+                    $('#_answer_to_input').val($(this).attr('data-chat-id'));
+                }
+            })
+
         });
+        function delete_reply_message(){
+            $('#_answer_to_input').val('0');
+            $('.answer_to_chat').slideUp();
+            $('.content_chat').animate({height: "420px"});
+        }
         function delete_chat_message($chat_id) {
             $.post(siteurl + 'ajax/chat/delete/r:' + Math.round(Math.random() * 1000), 'chat_id=' + encodeURIComponent($chat_id), function (data) {
                 if (data == 'OK') {
@@ -316,10 +383,15 @@
                 message = message.replace(i,'<img src="'+smile_url_base+SmileArrays[i]+'" class="post_smiley" />');
             }
 
+            var _reply_to_message = $('#_answer_to_input').val();
+
             html += '<div id="message_box_chat_'+randNumber+'">';
             html += '<div class="message_box right" id="message_box_' + randNumber + '" style="opacity: 0.4;"><div class="avatar"><a href="'+this_user_link+'" target="_blank"><img src="';
             html += this_user_avatar;
             html += '"></a></div><div class="message me">';
+            if(parseInt(_reply_to_message) > 0){
+                html += '<div class="reply">'+$('.answer_to_chat').find('p').html()+'</div>';
+            }
             html += message;
             var _date = new Date();
             html += '<br/><small>'+_date.getHours() + ':'+_date.getMinutes()+'</small></div></div><div class="klear"></div></div>';
@@ -329,9 +401,10 @@
 
             scrollTop = parseInt($('#content_chat_total').scrollTop());
             $('#content_chat_total').scrollTop(scrollTop + 50);
-
+            delete_reply_message();
             $.post(siteurl + 'ajax/chat/set/r:' + Math.round(Math.random() * 1000), {
-                message: orig_message
+                message: orig_message,
+                reply_to : _reply_to_message
             }, function (data) {
                 if (data.substr(0,3) == 'OK:') {
                     data = parseInt(data.replace(/^OK\:/,""));

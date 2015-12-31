@@ -18,9 +18,13 @@
         echo 'ERROR';
         return;
     }
+    $_reply_to = false;
+    if(isset($_POST['reply_to']) && intval($_POST['reply_to']) > 0){
+        $_reply_to = intval($_POST['reply_to']);
+    }
 
     $c = new chat();
-    $r = $c->insert($message);
+    $r = $c->insert($message,false,false,$_reply_to);
     if($r>0) {
         echo 'OK:'.$r;
         return;
