@@ -265,7 +265,7 @@
             });
 
         });
-        
+
         /**
          * Smile Array
          */
@@ -504,7 +504,7 @@
         }
         var lastmessagedate = '<?= intval($D->lastdate) ?>';
 
-        setInterval("get_chat_message()", 7500);
+        setInterval("get_chat_message()", 15000);
 
         function get_chat_message() {
             $.post(siteurl + 'ajax/chat/get/r:' + Math.round(Math.random() * 1000), {
