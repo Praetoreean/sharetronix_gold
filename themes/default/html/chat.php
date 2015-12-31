@@ -153,7 +153,7 @@
                 <div class="user_box_info" style="width:400px;border-top:solid 3px #752587">
                     <div class="chat">
                         <div class="header_chat">
-                            <?= $C->SITE_TITLE ?> همکلاسیها(آزمایشی)
+                            <?= $C->SITE_TITLE ?>
                             <span class="online"></span>
                         </div>
                         <div class="content_chat" id="content_chat_total">
@@ -257,6 +257,23 @@
     <?php } ?>
     <script type="text/javascript">
 
+        var lastmessagedate = '<?= intval($D->lastdate) ?>';
+        var this_user_avatar = '<?= $C->IMG_URL ?>avatars/thumbs3/<?= $this->user->info->avatar ?>';
+        var this_user_link = '<?= userlink($this->user->info->username) ?>';
+        var smile_url_base = '<?= $C->IMG_URL ?>/icons/';
+
+        /**
+         * Smile Array
+         */
+        var SmileArrays = {};
+        <?php foreach($C->POST_ICONS as $k=>$v){ ?>
+            SmileArrays['<?= $k ?>'] = '<?= $v ?>';
+        <?php } ?>
+
+
+
+
+
         $(document).ready(function () {
             $('#chat_message').keypress(function (e) {
                 if (e.which == 13) {
@@ -265,179 +282,6 @@
             });
 
         });
-
-        /**
-         * Smile Array
-         */
-        var SmileArrays = {};
-        SmileArrays['B-)'] = 's1.gif';
-        SmileArrays['b-)'] = 's1.gif';
-        SmileArrays['#:-s'] = 's2.gif';
-        SmileArrays['#:-S'] = 's2.gif';
-        SmileArrays[':-&'] = 's3.gif';
-        SmileArrays[':-$'] = 's4.gif';
-        SmileArrays['[-('] = 's5.gif';
-        SmileArrays[':D'] = 's31.gif';
-        SmileArrays[':-D'] = 's31.gif';
-        SmileArrays[':d'] = 's31.gif';
-        SmileArrays[':-d'] = 's31.gif';
-        SmileArrays['@-)'] = 's8.gif';
-        SmileArrays[':-w'] = 's9.gif';
-        SmileArrays[':w'] = 's9.gif';
-        SmileArrays[':-W'] = 's9.gif';
-        SmileArrays[':W'] = 's9.gif';
-        SmileArrays[':-L'] = 's10.gif';
-        SmileArrays[':-l'] = 's10.gif';
-        SmileArrays[';))'] = 's14.gif';
-        SmileArrays[':-@'] = 's15.gif';
-        SmileArrays['x('] = 's22.gif';
-        SmileArrays['X('] = 's22.gif';
-        SmileArrays['x-('] = 's22.gif';
-        SmileArrays['X-('] = 's22.gif';
-        SmileArrays[':-B'] = 's28.gif';
-        SmileArrays[':-b'] = 's28.gif';
-        SmileArrays[':B'] = 's28.gif';
-        SmileArrays[':b'] = 's28.gif';
-        SmileArrays[':|'] = 's23.gif';
-        SmileArrays[':-o'] = 's20.gif';
-        SmileArrays[':-O'] = 's20.gif';
-        SmileArrays[':o'] = 's20.gif';
-        SmileArrays[':O'] = 's20.gif';
-        SmileArrays['^:)^'] = 's16.gif';
-        SmileArrays['=))'] = 's29.gif';
-        SmileArrays['>:p'] = 's11.gif';
-        SmileArrays[':-j'] = 's17.gif';
-        SmileArrays['<:-P'] = 's7.gif';
-        SmileArrays['<:-p'] = 's7.gif';
-        SmileArrays['=;'] = 's24.gif';
-        SmileArrays['>:D<'] = 's19.gif';
-        SmileArrays['>:d<'] = 's19.gif';
-        SmileArrays['$-)'] = 's12.gif';
-        SmileArrays['0:-)'] = 's21.gif';
-        SmileArrays[';;)'] = 's27.gif';
-        SmileArrays[';)'] = 's34.gif';
-        SmileArrays[':-??'] = 's18.gif';
-        SmileArrays[':)'] = 's33.gif';
-        SmileArrays[':-/'] = 's30.gif';
-        SmileArrays[':(('] = 's26.gif';
-        SmileArrays[':-p'] = 's32.gif';
-        SmileArrays[':-P'] = 's32.gif';
-        SmileArrays[':p'] = 's32.gif';
-        SmileArrays[':-P'] = 's32.gif';
-        SmileArrays[':))'] = 's37.gif';
-        SmileArrays['>:/'] = 's13.gif';
-        SmileArrays['@};-'] = 's43.gif';
-
-        SmileArrays[':-?'] = 's40.gif';
-        SmileArrays['=D>'] = 's42.gif';
-        SmileArrays['=d>'] = 's42.gif';
-        SmileArrays[':-s'] = 's41.gif';
-        SmileArrays[':S'] = 's41.gif';
-        SmileArrays[':-S'] = 's41.gif';
-        SmileArrays[':s'] = 's41.gif';
-        SmileArrays['/:)'] = 's38.gif';
-        SmileArrays['~x('] = 's36.gif';
-        SmileArrays['~X('] = 's36.gif';
-        SmileArrays[':x'] = 's39.gif';
-        SmileArrays[':X'] = 's39.gif';
-        SmileArrays[':-x'] = 's39.gif';
-        SmileArrays[':-X'] = 's39.gif';
-        SmileArrays['<):)'] = 's35.gif';
-        SmileArrays['(:|'] = 's307.gif';
-        SmileArrays[':">'] = 's90.gif';
-        SmileArrays['\\:D/'] = 's69.gif';
-        SmileArrays['\\:d/'] = 's69.gif';
-        SmileArrays['b-('] = 's66.gif';
-        SmileArrays['B-('] = 's66.gif';
-        SmileArrays['[-o<'] = 's63.gif';
-        SmileArrays['8-X'] = 's59.gif';
-        SmileArrays['8-x'] = 's59.gif';
-        SmileArrays[':-*'] = 's101.gif';
-        SmileArrays['\\m/'] = 's111.gif';
-        SmileArrays['\\M/'] = 's111.gif';
-        SmileArrays['#-o'] = 's400.gif';
-        SmileArrays['#-O'] = 's400.gif';
-        SmileArrays[':-ss'] = 's402.gif';
-        SmileArrays[':-SS'] = 's402.gif';
-        SmileArrays[':^o'] = 's44.gif';
-        SmileArrays[':^O'] = 's44.gif';
-        SmileArrays[':-"'] = 's605.gif';
-        SmileArrays[':O)'] = 's304.gif';
-        SmileArrays[':o)'] = 's304.gif';
-        SmileArrays[':)]'] = 's100.gif';
-        SmileArrays['8->'] = 's105.gif';
-        SmileArrays['%-('] = 's107.gif';
-        SmileArrays['x_x'] = 's109.gif';
-        SmileArrays['X_X'] = 's109.gif';
-        SmileArrays[':('] = 's700.gif';
-        // Nipoto Smileys Code
-        SmileArrays['{-1-}'] = 's6.gif';
-        SmileArrays['{-2-}'] = 's1.gif';
-        SmileArrays['{-3-}'] = 's2.gif';
-        SmileArrays['{-4-}'] = 's3.gif';
-        SmileArrays['{-5-}'] = 's4.gif';
-        SmileArrays['{-6-}'] = 's5.gif';
-        SmileArrays['{-7-}'] = 's31.gif';
-        SmileArrays['{-8-}'] = 's8.gif';
-        SmileArrays['{-9-}'] = 's9.gif';
-        SmileArrays['{-10-}'] = 's10.gif';
-        SmileArrays['{-11-}'] = 's14.gif';
-        SmileArrays['{-12-}'] = 's15.gif';
-        SmileArrays['{-13-}'] = 's22.gif';
-        SmileArrays['{-14-}'] = 's28.gif';
-        SmileArrays['{-15-}'] = 's23.gif';
-        SmileArrays['{-16-}'] = 's20.gif';
-        SmileArrays['{-17-}'] = 's16.gif';
-        SmileArrays['{-18-}'] = 's29.gif';
-        SmileArrays['{-19-}'] = 's11.gif';
-        SmileArrays['{-20-}'] = 's17.gif';
-        SmileArrays['{-21-}'] = 's7.gif';
-        SmileArrays['{-22-}'] = 's24.gif';
-        SmileArrays['{-23-}'] = 's19.gif';
-        SmileArrays['{-24-}'] = 's12.gif';
-        SmileArrays['{-25-}'] = 's21.gif';
-        SmileArrays['{-26-}'] = 's27.gif';
-        SmileArrays['{-27-}'] = 's34.gif';
-        SmileArrays['{-28-}'] = 's18.gif';
-        SmileArrays['{-29-}'] = 's33.gif';
-        SmileArrays['{-30-}'] = 's30.gif';
-        SmileArrays['{-31-}'] = 's26.gif';
-        SmileArrays['{-32-}'] = 's32.gif';
-        SmileArrays['{-33-}'] = 's37.gif';
-        SmileArrays['{-34-}'] = 's13.gif';
-        SmileArrays['{-35-}'] = 's43.gif';
-
-        SmileArrays['{-36-}'] = 's40.gif';
-        SmileArrays['{-37-}'] = 's42.gif';
-        SmileArrays['{-38-}'] = 's41.gif';
-        SmileArrays['{-39-}'] = 's38.gif';
-        SmileArrays['{-40-}'] = 's36.gif';
-        SmileArrays['{-41-}'] = 's39.gif';
-        SmileArrays['{-42-}'] = 's35.gif';
-        SmileArrays['{-43-}'] = 's307.gif';
-        SmileArrays['{-44-}'] = 's90.gif';
-        SmileArrays['{-45-}'] = 's69.gif';
-        SmileArrays['{-46-}'] = 's66.gif';
-        SmileArrays['{-47-}'] = 's63.gif';
-        SmileArrays['{-48-}'] = 's59.gif';
-        SmileArrays['{-49-}'] = 's101.gif';
-        SmileArrays['{-50-}'] = 's111.gif';
-        SmileArrays['{-51-}'] = 's400.gif';
-        SmileArrays['{-52-}'] = 's402.gif';
-        SmileArrays['{-53-}'] = 's44.gif';
-        SmileArrays['{-54-}'] = 's605.gif';
-        SmileArrays['{-55-}'] = 's304.gif';
-        SmileArrays['{-56-}'] = 's100.gif';
-        SmileArrays['{-57-}'] = 's105.gif';
-        SmileArrays['{-58-}'] = 's107.gif';
-        SmileArrays['{-59-}'] = 's109.gif';
-        SmileArrays['{-60-}'] = 's700.gif';
-
-
-
-        var this_user_avatar = '<?= $C->IMG_URL ?>avatars/thumbs3/<?= $this->user->info->avatar ?>';
-        var this_user_link = '<?= userlink($this->user->info->username) ?>';
-        var smile_url_base = '<?= $C->IMG_URL ?>/icons/';
         function delete_chat_message($chat_id) {
             $.post(siteurl + 'ajax/chat/delete/r:' + Math.round(Math.random() * 1000), 'chat_id=' + encodeURIComponent($chat_id), function (data) {
                 if (data == 'OK') {
@@ -502,10 +346,6 @@
                 }
             });
         }
-        var lastmessagedate = '<?= intval($D->lastdate) ?>';
-
-        setInterval("get_chat_message()", 15000);
-
         function get_chat_message() {
             $.post(siteurl + 'ajax/chat/get/r:' + Math.round(Math.random() * 1000), {
                 lastdate: lastmessagedate
@@ -552,6 +392,9 @@
                 }
             })
         }
+
+
+        setInterval("get_chat_message()", 15000);
     </script>
 <?php
     $this->load_template('footer.php');
