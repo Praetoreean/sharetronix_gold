@@ -163,7 +163,7 @@
                                     <div id="message_box_chat_<?= $key ?>">
                                         <div class="message_box <?= $k['user_id'] == $this->user->id ? 'right' : 'left' ?>">
                                             <div class="avatar">
-                                                <img src="<?= $C->IMG_URL ?>avatars/thumbs3/<?= $k['user_id'] == $this->user->id ? $this->user->info->avatar : $this->network->get_user_by_id($k['user_id'])->avatar ?>">
+                                                <a href="<?= $k['userlink'] ?>" target="_blank" title="<?= $k['fullname'] ?>"> <img src="<?= $C->IMG_URL ?>avatars/thumbs3/<?= $k['user_id'] == $this->user->id ? $this->user->info->avatar : $this->network->get_user_by_id($k['user_id'])->avatar ?>"></a>
                                             </div>
                                             <div class="message <?= $k['user_id'] == $this->user->id ? 'me' : 'other' ?>">
                                                 <?= ($k['message']) ?><br/>
@@ -317,9 +317,9 @@
             }
 
             html += '<div id="message_box_chat_'+randNumber+'">';
-            html += '<div class="message_box right" id="message_box_' + randNumber + '" style="opacity: 0.4;"><div class="avatar"><img src="';
+            html += '<div class="message_box right" id="message_box_' + randNumber + '" style="opacity: 0.4;"><div class="avatar"><a href="'+this_user_link+'" target="_blank"><img src="';
             html += this_user_avatar;
-            html += '"></div><div class="message me">';
+            html += '"></a></div><div class="message me">';
             html += message;
             var _date = new Date();
             html += '<br/><small>'+_date.getHours() + ':'+_date.getMinutes()+'</small></div></div><div class="klear"></div></div>';
@@ -371,7 +371,7 @@
                          */
                         html = '';
                         html += '<div id="message_box_chat_'+obj[i].chat_id+'">';
-                        html += '<div class="message_box left"><div class="avatar"><img src="';
+                        html += '<div class="message_box left"><div class="avatar"><a href="'+obj[i].userlink+'" title="'+obj[i].fullname+'" target="_blank"><img src="';
                         html += obj[i].avatar;
                         html += '"></div><div class="message other">';
                         html += obj[i].message;
