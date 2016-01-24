@@ -1,7 +1,20 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: Farvisun
-     * Date: 1/24/2016
-     * Time: 11:43 AM
-     */
+
+    if( !$this->network->id ) {
+        $this->redirect('home');
+    }
+    if( !$this->user->is_logged ) {
+        $this->redirect('signin');
+    }
+
+    $this->load_langfile('inside/global.php');
+    $this->load_langfile('inside/settings.php');
+
+
+    $D->page_title	= "Share Settings " . $C->SITE_TITLE;
+
+
+
+    $this->load_template('settings_share.php');
+
+?>
