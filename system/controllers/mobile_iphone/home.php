@@ -1,7 +1,7 @@
 <?php
 	
 	if( $this->user->is_logged ) {
-		$this->redirect('dashboard');
+		$this->redirect('panel');
 	}
 	if( $C->MOBI_DISABLED ) {
 		$this->redirect('mobidisabled');
@@ -40,7 +40,7 @@
 					require_once( $C->INCPATH.'helpers/func_signup.php' );
 					if( TRUE === user_try_login_in_ldap($D->email, $D->password, $D->rememberme) ) {
 						if( $this->user->is_logged ) {
-							$this->redirect($C->SITE_URL.'dashboard');
+							$this->redirect($C->SITE_URL.'panel');
 						}
 					}
 				}
@@ -48,7 +48,7 @@
 				$D->errmsg	= 'home_form_errmsg';
 			}
 			else {
-				$this->redirect($C->SITE_URL.'dashboard');
+				$this->redirect($C->SITE_URL.'panel');
 			}
 		}
 	}
