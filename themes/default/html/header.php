@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="<?= $C->SITE_URL.'themes/'.$C->THEME ?>/js/jquery-1.4.2.min.js"></script>
 		<script type="text/javascript" src="<?= $C->SITE_URL.'themes/'.$C->THEME ?>/js/smileys.js"></script>
 		<script type="text/javascript" src="<?= $C->SITE_URL.'themes/'.$C->THEME ?>/js/unitpngfix.js"></script>
+		<script src="<?= $C->SITE_URL .'themes/'.$C->THEME ?>/js/dashboard.js"></script>
 		<base href="<?= $C->SITE_URL ?>" />
 		<script type="text/javascript"> var siteurl = "<?= $C->SITE_URL ?>"; </script>
 		
@@ -364,6 +365,18 @@
 					</form>
 				</div>
 				<?php } ?>
+				<style>
+							#loadnewactivity{
+								width: 100%;
+								padding-top:10px;
+								padding-bottom: 10px;
+								background-color:#123456;
+								color:#fff;
+								text-align: center;
+								box-shadow: 0px 1px 2px #e1e1e1;	
+								display: none;							
+							}
+						</style>
 				<div id="pagebody">
 					<?php if( $this->param('installed')=='ok' ) { ?>
 						<?= okbox($this->lang('sharetronix_install_ok_ttl'), $this->lang('sharetronix_install_ok_txt',array('#VER#'=>$C->VERSION))) ?>

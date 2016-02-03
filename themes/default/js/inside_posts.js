@@ -113,7 +113,7 @@ function post_hide_slow(postid, callback_after)
 }
 
 var sync_tmout	= false;
-function posts_synchronize()
+/*function posts_synchronize()
 {
 	if( postcomments_open_state ) {
 		for(var i in postcomments_open_state) {
@@ -175,7 +175,7 @@ function posts_synchronize()
 		clearTimeout(sync_tmout);
 		sync_tmout	= false;
 	}
-}
+}*/
 function posts_synchronize_step2()
 {
 	var dv	= d.getElementById("posts_html");

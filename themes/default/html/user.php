@@ -127,8 +127,25 @@
 					<?php if($this->param('msg')=='deletedpost') { ?>
 					<?= okbox($this->lang('msg_post_deleted_ttl'), $this->lang('msg_post_deleted_txt'), TRUE, 'margin-bottom:6px;') ?>
 					<?php } ?>
-				<div id="userposts">
+					<script type="text/javascript">
+						var last_post_id = <?= $D->last_post_id ?>;
+						var about_user_id = <?= $D->about_user; ?>; //edit this 
+						var about_tab = "<?= $D->check_new_posts ?>"; //edit this
+						var group_id = 0;
+						
+						if( d.addEventListener ) {
+							d.addEventListener("load", new_activity_check, false);
+							w.addEventListener("load", new_activity_check, false);
+						}
+						else if( d.attachEvent ) {
+							d.attachEvent("onload", new_activity_check);
+							w.attachEvent("onload", new_activity_check);
+						}
+					</script>
+				<a id="loadnewactivity" href="javascript:;" onclick="new_activity_show();"></a>
+				<div id="userposts">						
 						<div id="posts_html">
+							<div id="insertAfter"></div>
 							<?= $D->posts_html ?>
 						</div>
 					</div>

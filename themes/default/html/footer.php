@@ -84,6 +84,5 @@
 		<?php
 			@include( $C->INCPATH.'../themes/include_in_footer.php' );
 		?>
-		<script type="text/javascript" src="http://radarurl.com/js/radarurl_widget.js"></script><script type="text/javascript">radarurl_call_radar_widgetv2({edition:"Dynamic",location:"leftbottom"})</script>
 	</body>
 </html>

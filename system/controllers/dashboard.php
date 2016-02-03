@@ -285,6 +285,9 @@
 	$D->pg		= 1;
 	$D->posts_html	= '';
 	
+	$D->lats_post_id = 0;
+	$postdates = array();
+
 	if( $q1!='' && $q2!='' ) {
 		$D->num_results	= $db2->fetch_field($q1);
 		$D->num_pages	= ceil($D->num_results / $C->PAGING_NUM_POSTS);
@@ -305,7 +308,10 @@
 				continue;
 			}
 			$tmpids[]	= $D->p->post_tmp_id;
-		}
+			if( $D->lats_post_id < $D->p->post_id ){
+				$D->lats_post_id = $D->p->post_id;
+			}
+		}		
 		post::preload_num_new_comments($tmpids);
 		ob_start();
 		foreach($tmpposts as $tmp) {
@@ -507,6 +513,9 @@
 	}
 	$D->grplar	= array_slice($D->grplar, 0, $num);
 
+	$D->check_new_posts = $this->request[0].'_'.$D->tab;
+	$D->lats_post_id = isset($D->lats_post_id)? $D->lats_post_id : 0;
+	
 	$this->load_template('dashboard.php');
 	
 ?>

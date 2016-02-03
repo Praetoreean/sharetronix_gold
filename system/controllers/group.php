@@ -182,6 +182,7 @@
 			$q1	= 'SELECT COUNT(p.id) FROM posts p, posts_attachments a WHERE p.id=a.post_id AND p.group_id="'.$g->id.'" AND a.type="'.$tmp[$D->filter].'" ';
 			$q2	= 'SELECT p.*, "public" AS `type` FROM posts p, posts_attachments a WHERE p.id=a.post_id AND p.group_id="'.$g->id.'" AND a.type="'.$tmp[$D->filter].'" ORDER BY p.id DESC ';
 		}
+		$D->lats_post_id = 0;
 		$D->num_results	= $db2->fetch_field($q1);
 		if( 0 == $D->num_results ) {
 			$arr	= array('#GROUP#'=>htmlspecialchars($g->title), '#SITE_TITLE#'=>htmlspecialchars($C->OUTSIDE_SITE_TITLE), '#A1#'=>'<a href="javascript:;" onclick="postform_open(({groupname:\''.htmlspecialchars($g->title).'\'}));">', '#A2#'=>'</a>', );
@@ -212,6 +213,9 @@
 				}
 				if( $this->param('from')=='ajax' && $this->param('onlypost')!="" && $this->param('onlypost')!=$D->p->post_tmp_id ) {
 					continue;
+				}
+				if( $D->lats_post_id < $D->p->post_id ){
+					$D->lats_post_id = $D->p->post_id;
 				}
 				$tmpids[]	= $D->p->post_tmp_id;
 			}

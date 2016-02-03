@@ -169,9 +169,11 @@
 			$D->pg	= max($D->pg, 1);
 			$from	= ($D->pg - 1) * $C->PAGING_NUM_POSTS;
 			$res	= $db2->query($q2.'LIMIT '.$from.', '.$C->PAGING_NUM_POSTS);
-			
+			$D->check_new_posts = 'user_updates_'.$D->filter;
+			$D->about_user = $D->usr->id;
 			$tmpposts	= array();
 			$tmpids	= array();
+			$D->last_post_id = 0;
 			while($obj = $db2->fetch_object($res)) {
 				$D->p	= $tmpposts[] = new post($obj->type, FALSE, $obj);
 				if( $D->p->error ) {
@@ -179,6 +181,9 @@
 				}
 				if( $this->param('from')=='ajax' && $this->param('onlypost')!="" && $this->param('onlypost')!=$D->p->post_tmp_id ) {
 					continue;
+				}
+				if( $D->last_post_id < $D->p->post_id ){
+					 $D->last_post_id = $D->p->post_id;
 				}
 				$tmpids[]	= $D->p->post_tmp_id;
 			}

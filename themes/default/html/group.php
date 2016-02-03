@@ -135,8 +135,10 @@
 					<?php if($this->param('msg')=='deletedpost') { ?>
 					<?= okbox($this->lang('msg_post_deleted_ttl'), $this->lang('msg_post_deleted_txt'), TRUE, 'margin-bottom:6px;') ?>
 					<?php } ?>
+					<a id="loadnewactivity" href="javascript:;" onclick="new_activity_show();"></a>
 					<div id="userposts">
 						<div id="posts_html">
+							<div id="insertAfter"></div>
 							<?= $D->posts_html ?>
 						</div>
 					</div>
