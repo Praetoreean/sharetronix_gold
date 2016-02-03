@@ -374,7 +374,10 @@
 								color:#fff;
 								text-align: center;
 								box-shadow: 0px 1px 2px #e1e1e1;	
-								display: none;							
+								display: block;
+								margin-top:2px;
+								margin-bottom:2px;
+								display : none;
 							}
 						</style>
 				<div id="pagebody">

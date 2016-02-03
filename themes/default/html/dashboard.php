@@ -154,18 +154,8 @@ function random_imglink(){
 								w.attachEvent("onload", new_activity_check);
 							}
 						</script>	
-						<style>
-							#loadnewactivity{
-								width: 100%;
-								padding-top:10px;
-								padding-bottom: 10px;
-								background-color:#123456;
-								color:#fff;
-								text-align: center;
-								box-shadow: 0px 1px 2px #e1e1e1;								
-							}
-						</style>
-						<a href="javascript:;" onclick="new_activity_show()" id="loadnewactivity" style="display:none"></a>
+
+						<a href="javascript:;" onclick="new_activity_show()" id="loadnewactivity" ></a>
 						<div id="posts_html">
 							<div id="insertAfter"></div>
 							<?= $D->posts_html ?>
