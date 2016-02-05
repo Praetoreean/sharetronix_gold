@@ -156,6 +156,7 @@ function random_imglink(){
 						</script>	
 
 						<a href="javascript:;" onclick="new_activity_show()" id="loadnewactivity" ></a>
+						
 						<div id="posts_html">
 							<div id="insertAfter"></div>
 							<?= $D->posts_html ?>

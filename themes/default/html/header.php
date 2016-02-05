@@ -367,17 +367,18 @@
 				<?php } ?>
 				<style>
 							#loadnewactivity{
-								width: 100%;
-								padding-top:10px;
-								padding-bottom: 10px;
-								background-color:#123456;
-								color:#fff;
-								text-align: center;
-								box-shadow: 0px 1px 2px #e1e1e1;	
-								display: block;
-								margin-top:2px;
-								margin-bottom:2px;
-								display : none;
+									width: 99%;
+									float: left;
+									font-weight: none;
+									font-size: 14px;
+									text-align: center;
+									padding: 9px 0 0 0;
+									display: none;
+									margin: 5px 2px 10px 2px;
+									height: 30px;
+									border: 1px solid #5A98CD;
+									background-color: #A6CBF0;
+									color: #2A4280;
 							}
 						</style>
 				<div id="pagebody">

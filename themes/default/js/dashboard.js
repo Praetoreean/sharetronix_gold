@@ -11,7 +11,7 @@ function new_activity_check()
 			$('#loadnewactivity').html('').hide();
 		}
 	});
-	setTimeout( new_activity_check, 30000 );
+	setTimeout( new_activity_check, 5000 );
 }
 function new_activity_show()
 {	
