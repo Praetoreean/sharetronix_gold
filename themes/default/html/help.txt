@@ -1,0 +1,1 @@
+add a row to application table in database with id 12

@@ -124,6 +124,11 @@
 						$db2->query('UPDATE users SET twitter_uid="'.$uid.'" WHERE id="'.intval($this->user->id).'" LIMIT 1');
 					}
 				}
+				if(isset($_GET['location'])){
+					if($_GET['location'] == 'share'){
+						$this->redirect($C->SITE_URL .'share?ref=signin&url='.$_GET['url'].'&title='.$_GET['title']);
+					}
+				}
 				$this->redirect($C->SITE_URL.'dashboard');
 				exit;
 			}
