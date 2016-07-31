@@ -125,6 +125,7 @@ function random_imglink(){
 							<strong><?= $this->lang('dbrd_privtab_usrtb_txt') ?>&nbsp;</strong> <b><?= $D->privusr->username ?></b>
 							<a href="javascript:;" onclick="privmsg_usrfilter_reset();" onfocus="this.blur();"><small><?= $this->lang('dbrd_privtab_usrtb_txt_x') ?></small></a>
 						</div>
+
 						<script type="text/javascript">
 							var tmpfnc	= function() { try { document.privform.privusr_inp.focus(); } catch(e) {} };
 							if( d.addEventListener ) {
@@ -140,10 +141,33 @@ function random_imglink(){
 						<?php if($this->param('msg')=='deletedpost') { ?>
 						<?= okbox($this->lang('msg_post_deleted_ttl'), $this->lang('msg_post_deleted_txt'), TRUE, 'margin-bottom:5px;') ?>
 						<?php } ?>
+						
+						<script type="text/javascript">
+							var last_post_id = <?= $D->lats_post_id ?>;
+							var about_user_id = <?= $this->user->id ?>; 
+							var about_tab = "<?= $D->check_new_posts ?>"; 
+							var group_id = <?= isset($D->onlygroup->id)? $D->onlygroup->id : 0 ?>;
+							
+							if( d.addEventListener ) {
+								d.addEventListener("load", new_activity_check, false);
+								w.addEventListener("load", new_activity_check, false);
+							}
+							else if( d.attachEvent ) {
+								d.attachEvent("onload", new_activity_check);
+								w.attachEvent("onload", new_activity_check);
+							}
+						</script>	
+
+						<a href="javascript:;" onclick="new_activity_show()" id="loadnewactivity" ></a>
+						
 						<div id="posts_html">
+							<div id="insertAfter"></div>
 							<?= $D->posts_html ?>
 						</div>
 					</div>
+					
+
+					
 					<div id="home_right">
 						
 						<?php if( $C->MOBI_DISABLED==0 ) { ?>
