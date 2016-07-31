@@ -73,7 +73,8 @@
 			}
 			global $C;
 			$this->message	= trim($message);
-			
+            $this->message = preg_replace('/\s+/ius', ' ', $this->message);
+
 			$this->mentioned	= array();
 			if( preg_match_all('/\@([a-zA-Z0-9\-_]{3,30})/u', $message, $matches, PREG_PATTERN_ORDER) ) {
 				foreach($matches[1] as $unm) {
