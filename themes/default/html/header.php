@@ -193,21 +193,21 @@
 							</div>
 							<textarea name="message" tabindex="1"></textarea>
 							<div id="pfattach">
-								<? if( $C->ATTACH_LINK_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
+								<?php if( $C->ATTACH_LINK_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
 								<a href="javascript:;" class="attachbtn" onclick="postform_attachbox_open('link', 96); this.blur();" id="attachbtn_link" tabindex="3"><b><?= $this->lang('pf_attachtab_link') ?></b></a>
-								<? if( $C->ATTACH_LINK_DISABLED==1 ) { echo '</div>'; }  ?>
+								<?php if( $C->ATTACH_LINK_DISABLED==1 ) { echo '</div>'; }  ?>
 								<div id="attachok_link" class="attachok" style="display:none;"><span><b><?= $this->lang('pf_attached_link') ?></b> <em id="attachok_link_txt"></em> <a href="javascript:;" class="removeattachment" onclick="postform_attach_remove('link');" onfocus="this.blur();"></a></span></div>
-								<? if( $C->ATTACH_IMAGE_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
+								<?php if( $C->ATTACH_IMAGE_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
 								<a href="javascript:;" class="attachbtn" onclick="postform_attachbox_open('image', 131); this.blur();" id="attachbtn_image" tabindex="3"><b><?= $this->lang('pf_attachtab_image') ?></b></a>
-								<? if( $C->ATTACH_IMAGE_DISABLED==1 ) { echo '</div>'; }  ?>
+								<?php if( $C->ATTACH_IMAGE_DISABLED==1 ) { echo '</div>'; }  ?>
 								<div id="attachok_image" class="attachok" style="display:none;"><span><b><?= $this->lang('pf_attached_image') ?></b> <em id="attachok_image_txt"></em> <a href="javascript:;" class="removeattachment" onclick="postform_attach_remove('image');" onfocus="this.blur();"></a></span></div>
-								<? if( $C->ATTACH_VIDEO_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
+								<?php if( $C->ATTACH_VIDEO_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
 								<a href="javascript:;" class="attachbtn" onclick="postform_attachbox_open('videoembed', 96); this.blur();" id="attachbtn_videoembed" tabindex="3"><b><?= $this->lang('pf_attachtab_videmb') ?></b></a>
-								<? if( $C->ATTACH_VIDEO_DISABLED==1 ) { echo '</div>'; }  ?>
+								<?php if( $C->ATTACH_VIDEO_DISABLED==1 ) { echo '</div>'; }  ?>
 								<div id="attachok_videoembed" class="attachok" style="display:none;"><span><b><?= $this->lang('pf_attached_videmb') ?></b> <em id="attachok_videoembed_txt"></em> <a href="javascript:;" class="removeattachment" onclick="postform_attach_remove('videoembed');" onfocus="this.blur();"></a></span></div>
-								<? if( $C->ATTACH_FILE_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
+								<?php if( $C->ATTACH_FILE_DISABLED==1 ) { echo '<div style="display:none;">'; }  ?>
 								<a href="javascript:;" class="attachbtn" onclick="postform_attachbox_open('file', 96); this.blur();" id="attachbtn_file" tabindex="3"><b><?= $this->lang('pf_attachtab_file') ?></b></a>
-								<? if( $C->ATTACH_FILE_DISABLED==1 ) { echo '</div>'; }  ?>
+								<?php if( $C->ATTACH_FILE_DISABLED==1 ) { echo '</div>'; }  ?>
 								<div id="attachok_file" class="attachok" style="display:none;"><span><b><?= $this->lang('pf_attached_file') ?></b> <em id="attachok_file_txt"></em> <a href="javascript:;" class="removeattachment" onclick="postform_attach_remove('file');" onfocus="this.blur();"></a></span></div>
 								<a href="javascript:;" id="postbtn" onclick="postform_submit();" tabindex="2"><b id="postbtn_newpost"><?= $this->lang('pf_submit_newmsg') ?></b><b id="postbtn_edtpost" style="display:none;"><?= $this->lang('pf_submit_edtmsg') ?></b></a>
 &nbsp;<img src="<?= $C->SITE_URL.'themes/'.$C->THEME ?>/imgs/smiley-load.jpg" style="border-width: 0; margin-right: 2px;" id="shrtrnx-smiley" alt="" />
