@@ -154,7 +154,7 @@
 		ob_end_clean();
 		unset($tmp, $sdf, $usrs, $D->u);
 	}
-	
+	$db2->query('UPDATE groups_followed SET new_post="0" WHERE user_id="'.$this->user->id.'" AND group_id="'.$D->g->id.'" LIMIT 1');
 	$this->load_template('mobile_iphone/group.php');
 	
 ?>

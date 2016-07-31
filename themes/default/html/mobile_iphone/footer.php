@@ -3,6 +3,19 @@
 	$this->load_langfile('mobile/footer.php');
 	
 ?>
+        <nav id="hm-menu">
+            <ul>
+                <li><a href="<?= $C->SITE_URL ?>panel"><i class="fa fa-home"></i>صفحه اصلی</a></li>
+                <li><a href="<?= $C->SITE_URL ?>dashboard"><i class="fa fa-pencil"></i>داشبورد</a>
+                </li>
+                <li><a href="<?= $C->SITE_URL ?>post"><i class="fa fa-send"></i>ارسال پست</a></li>
+                <li><a href="<?= $C->SITE_URL ?>search"><i class="fa fa-search"></i>جستجو</a></li>
+                <li><a href="<?= $C->SITE_URL ?>members"><i class="fa fa-user"></i>کاربران</a></li>
+                <li><a href="<?= $C->SITE_URL ?>groups"><i class="fa fa-group"></i>گروه ها</a></li>
+                <li><a href="<?= $C->SITE_URL ?>avatar"><i class="fa fa-cogs"></i>تنظیمات</a></li>
+                <li><a href="<?= $C->SITE_URL ?>signout"><i class="fa fa-sign-out"></i> خروج</a></li>
+          </ul>
+        </nav>
 		<?php if( $this->user->is_logged ) { ?>
 		<div id="menu_container" style="display:none;">
 			<div id="blackoverlay"></div>

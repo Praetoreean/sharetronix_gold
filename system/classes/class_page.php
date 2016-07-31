@@ -69,7 +69,7 @@
 				$C->API_ID		= 1;
 			}
 			if( $is_mobile ) {
-				$is_touch	= FALSE;
+				$is_touch	= true;
 				if( isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'],'iPhone') ) {
 					$is_touch	= TRUE;
 				}

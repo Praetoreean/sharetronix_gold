@@ -421,6 +421,9 @@
 							}
 						}
 					}
+					if($db_group_id > 0){
+						$db2->query('update groups_followed SET new_post = new_post+1 WHERE user_id != "'.$db_user_id.'" AND group_id="'.$db_group_id.'"');
+					}
 					if( $this->user->id > 0 ) {
 						$db2->query('UPDATE users SET num_posts=num_posts+1, lastpost_date="'.time().'" WHERE id="'.$db_user_id.'" LIMIT 1');
 					}
